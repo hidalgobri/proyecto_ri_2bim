@@ -6,6 +6,8 @@ pathDocs = 'docs/'
 def main():
     #Leer docs
     docs_dic = fnc.leerDocs(pathDocs)
+    stop_words = fnc.stopWords()
+    lemas = fnc.palabras_lematizadas_dic()
     
     #limpieza
     #...
