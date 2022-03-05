@@ -25,7 +25,7 @@ def stopWords():
     return stop_words
 
 def palabras_lematizadas_dic():
-  lemat_palabras = {'casa': ['refugio','hogar', 'casas'], 'estar':['estamos'], 'vacio':['vacia'], 'grande':['enorme','grandes'],'foraneo':['extranjero', 'foraneos'],
+  lemat_palabras = {'casa': ['refugio','hogar', 'casas'], 'estar':['estamos','están','estan','estaremos'], 'vacio':['vacia'], 'grande':['enorme','grandes'],'foraneo':['extranjero', 'foraneos'],
                   'seleccionar':['selecciono'],'directivo':['directivos'],'convertir':['convirtio'],'compañia':['compañias'],'determinar':['determina'],
                   'tener':['tiene', 'tuvo', 'tendra'],'reconocer':['reconoce', 'reconocio'],'juzgar':['juzgada'],'cien':['cientos'],'mil':['miles'],
                   'proceso':['procesos'],'resolver':['resueltos', 'resolucion'],'conjuez':['conjueces'],'temporal':['temporales'],'juez':['jueces'],
@@ -38,21 +38,26 @@ def palabras_lematizadas_dic():
                   'literal':['literatura'],'ruido':['ruidoso', 'ruidos'],'habitar':['habitantes', 'habitaban'],
                   'mirar':['mirada'],'quien':['quienes'],'demandar':['demandaban','demandados'],'entretener':['entretenimiento'],
                   'ciudad':['ciudades'],'sobrar':['sobra', 'sobrando'],'construir':['construyo', 'construyendo'],
-                  'campo':['campos'],'relacionar':['relacionada'],'alimentar':['alimento', 'alimentacion'],'poder':['poderes'],
-                  'adquirir':['adquisitivo'],'disminuir':['disminuido'],'considerar':['considerablemente'],'sistema':['sistemas'],
+                  'campo':['campos'],'relacionar':['relacionada','relacionan'],'alimentar':['alimento', 'alimentacion'],'poder':['poderes'],
+                  'adquirir':['adquisitivo'],'disminuir':['disminuido'],'considerable':['considerablemente'],'considerar':['consideremos','considera'],'sistema':['sistemas'],
                   'salud':['saludable'],'brindar':['brindan', 'brindaron'],'servicio':['servicios'],'obra':['obras'],
-                  'realizar':['realizadas', 'realizacion'],'necesidad':['necesidades'],'ciudadano':['ciudadania', 'ciudadanos'],
-                  'calle':['calles', 'avenida'],'luz':['luces','focos'],'blanca':['blancas'],'color':['colores'],'tienda':['tiendas'],
-                  'decorar':['decoracion', 'decoradas'],'figura':['figuras'],'roja':['rojas'],'verde':['verdes'],'persona':['personas'],
-                  'ir':['van', 'vienen'],'salir':['salen', 'saliendo'],'arbol':['arboles', 'arbolitos'],'bola':['bolas'],
-                  'brillar':['brillantes', 'brilos'],'guirnalda':['guirnaldas'],'estrella':['estrellas'],
+                  'realizar':['realizadas', 'realizacion'],'necesidad':['necesidades'],'ciudadano':['ciudadania', 'ciudadanos','ciudadana'],
+                  'calle':['calles', 'avenida'],'luz':['luces','focos'],'blanco':['blancas','blanca'],'color':['colores'],'tienda':['tiendas'],
+                  'decorar':['decoracion', 'decoradas'],'figura':['figuras'],'rojo':['rojas','rojos','roja'],'verde':['verdes'],'persona':['personas'],
+                  'ir':['van', 'vienen','va'],'salir':['salen', 'saliendo'],'arbol':['arboles', 'arbolitos','árboles','arboleda'],'bola':['bolas'],
+                  'brillar':['brillantes', 'brillos'],'guirnalda':['guirnaldas'],'estrella':['estrellas'],
                   'restaurante':['restaurantes'],'parque':['parques'],'mito':['mitos'],
-                  'narrar':['narraciones', 'narracion'],'transmitir':['transmision', 'transmitio'],'aparecer':['aparecen','aparecio'],
+                  'narrar':['narraciones', 'narracion'],'transmitir':['transmision', 'transmitio','transmisión'],'aparecer':['aparecen','aparecio'],
                   'suceso':['sucesos'],'personaje':['personajes'],'surgir':['surgieron'],
                   'explicar':['explicacion', 'explico'],'existir':['existencia', 'existo'],'relatar':['relatos', 'relata'],
                   'crear':['creacion', 'creados'],'comprender':['comprension'],'coleccionar':['coleccion','coleccionamos', 'coleccionismo', 'coleccionistas'],
-                  'objeto':['objetos'],'estudiar':['estudian', 'estudiaron', 'estudiante'],'conservar':['conservacion','conservar'],
-                  'invertir':['invierten', 'inversion'],'aquel':['aquellos','aquellas']}
+                  'objeto':['objetos'],'estudiar':['estudian', 'estudiaron', 'estudiante'],'conservar':['conservacion','conservan'],
+                  'invertir':['invierten', 'inversion'],'aquel':['aquellos','aquellas'],'poblacion':['poblaciones','población'],
+                  'publico':['publicas','públicas','pública','publica','publicos','público'],'adornado':['adornados','adornada','adornadas'],
+                  'distinto':['distinta','distintos','distintas'],'entrar':['entran','entramos','entra'],'caer':['caen','caemos'],'fantastico':['fantásticos','fantástico'],
+                  'cosa':['cosas'],'servir':['sirven','servimos','serviremos'],'consistir':['consisten','consistencia'],'reunir':['reunen','reúnen','reuniendo'],
+                  'restaurar':['restauran','restauracion'],'exponer':['exponen','exposicion']
+                  }
   return lemat_palabras
 
 def crearDiccionario(dic_docs, v_list ):
@@ -88,6 +93,6 @@ def crearDiccionario(dic_docs, v_list ):
     listDesordenada = list(diccionario.values())
     listUnidimensional =[item for sublist in listDesordenada for item in sublist ]
     listAux = list(set(listUnidimensional))
-    return listaAux.sort()
+    return listAux.sort()
 
 
