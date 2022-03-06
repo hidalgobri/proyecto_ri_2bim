@@ -1,4 +1,6 @@
 import os
+import unidecode
+
 
 def leerTxt(path):
     file = open(path, 'r', encoding="utf-8")
@@ -59,6 +61,40 @@ def palabras_lematizadas_dic():
                   'restaurar':['restauran','restauracion'],'exponer':['exponen','exposicion']
                   }
   return lemat_palabras
+
+
+#si existe, reemplaza la palabra por otra conjugada en presente y singular
+def lematizacion ( palabra, dicc_lemat):
+  for key, value in dicc_lemat.items():
+    if palabra in value:
+      return key
+  return palabra
+
+#1. V= [todos los términos que haya en el doc]
+def crear_v(lista_docs, stop_words, lemat_palabras):
+  v_list = []
+  for doc in lista_docs:
+    doc_limp = limpia_string(doc,stop_words, lemat_palabras)
+
+    v_list_aux = [ palabra for palabra in doc_limp if palabra not in v_list]
+    v_list = v_list + v_list_aux
+  return v_list
+
+def limpia_string(string, stop_words, lemat_palabras):
+#recibe un string, lo parte, limpia cada palabra y devuelve una lista
+  palabras = string.split()
+  lista_palabras = []
+
+  for palabra in palabras:
+      palabra_limpia = unidecode.unidecode(palabra.lower().replace(',','').replace('.','').replace("'","")) #quita la tilde, y pone en minúscula
+      
+      if palabra_limpia not in stop_words and palabra_limpia.isnumeric() == False :
+        palabra_lemat = lematizacion(palabra_limpia, lemat_palabras)
+        lista_palabras.append(palabra_lemat)
+  lista_palabras.sort()
+  return lista_palabras
+
+
 
 def crearDiccionario(dic_docs, v_list ):
   #recibe una lista del contenido de los docs en string
