@@ -41,7 +41,7 @@ def palabras_lematizadas_dic():
                   'mirar':['mirada'],'quien':['quienes'],'demandar':['demandaban','demandados'],'entretener':['entretenimiento'],
                   'ciudad':['ciudades'],'sobrar':['sobra', 'sobrando'],'construir':['construyo', 'construyendo'],
                   'campo':['campos'],'relacionar':['relacionada','relacionan'],'alimentar':['alimento', 'alimentacion'],'poder':['poderes'],
-                  'adquirir':['adquisitivo'],'disminuir':['disminuido'],'considerable':['considerablemente'],'considerar':['consideremos','considera'],'sistema':['sistemas'],
+                  'adquirir':['adquisitivo'],'disminuir':['disminuido'],'considerar':['consideremos','considera'],'sistema':['sistemas'],
                   'salud':['saludable'],'brindar':['brindan', 'brindaron'],'servicio':['servicios'],'obra':['obras'],
                   'realizar':['realizadas', 'realizacion'],'necesidad':['necesidades'],'ciudadano':['ciudadania', 'ciudadanos','ciudadana'],
                   'calle':['calles', 'avenida'],'luz':['luces','focos'],'blanco':['blancas','blanca'],'color':['colores'],'tienda':['tiendas'],
@@ -80,19 +80,25 @@ def crear_v(lista_docs, stop_words, lemat_palabras):
     v_list = v_list + v_list_aux
   return v_list
 
-def limpia_string(string, stop_words, lemat_palabras):
+def limpia_string(docs_dic, stop_words, lemat_palabras):
 #recibe un string, lo parte, limpia cada palabra y devuelve una lista
-  palabras = string.split()
-  lista_palabras = []
 
-  for palabra in palabras:
+  clean_docs_dic = {}
+  for indx, value in docs_dic.items():
+    
+    palabras = value.split()
+    lista_palabras = []
+
+    for palabra in palabras:
       palabra_limpia = unidecode.unidecode(palabra.lower().replace(',','').replace('.','').replace("'","")) #quita la tilde, y pone en minúscula
       
       if palabra_limpia not in stop_words and palabra_limpia.isnumeric() == False :
         palabra_lemat = lematizacion(palabra_limpia, lemat_palabras)
-        lista_palabras.append(palabra_lemat)
-  lista_palabras.sort()
-  return lista_palabras
+        if palabra_lemat not in lista_palabras:
+          lista_palabras.append(palabra_lemat)
+    lista_palabras.sort()
+    clean_docs_dic[indx] = lista_palabras
+  return clean_docs_dic
 
 
 
@@ -125,10 +131,18 @@ def crearDiccionario(dic_docs, v_list ):
   return diccionario
 
 #vocabularioList = lista con todos los terminos de todos los documentos
-  def crearVocabularioList(diccionario):
-    listDesordenada = list(diccionario.values())
-    listUnidimensional =[item for sublist in listDesordenada for item in sublist ]
-    listAux = list(set(listUnidimensional))
-    return listAux.sort()
+def crearVocabularioList(diccionario):
+  listDesordenada = list(diccionario.values())
+  listUnidimensional =[item for sublist in listDesordenada for item in sublist ]
+  listAux = list(set(listUnidimensional)) #para borrar los repetidos
+  listAux.sort()
+  return listAux
 
+
+def docs_term_limpios (docs_list, stop_words, lemat_palabras):
+  dic_docs = {}
+  nombre_clave = 'doc_'
+  for indx,doc in enumerate(docs_list):
+    dic_docs[nombre_clave+str(indx)] = limpia_string(doc, stop_words, lemat_palabras)
+  return dic_docs
 
