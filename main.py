@@ -5,18 +5,19 @@ pathDocs = 'docs/'
 
 def main():
     #Leer docs
-    docs_dic = fnc.leerDocs(pathDocs)
-    stop_words = fnc.stopWords()
+    docsDic = fnc.leerDocs(pathDocs)
+    stopWords = fnc.stopWords()
     lemas = fnc.palabras_lematizadas_dic()
     
     #limpieza
-    clean_docs_dic = fnc.limpia_string(docs_dic, stop_words, lemas)
-    
+    cleanDocsDic = fnc.limpia_string(docsDic, stopWords, lemas)
+
     #creacion del vocabularioList
-    vocabularioList = fnc.crearVocabularioList(clean_docs_dic)
-    print(vocabularioList)
+    vocabularioList = fnc.crearVocabularioList(cleanDocsDic)
+
     #creacion del diccionario
-    #crearDiccionario(dic_docs, vocabularioList )
+    dicc = fnc.crearDiccionario(cleanDocsDic, vocabularioList )
+    
 
 if __name__ == "__main__":
     main()

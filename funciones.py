@@ -94,8 +94,8 @@ def limpia_string(docs_dic, stop_words, lemat_palabras):
       
       if palabra_limpia not in stop_words and palabra_limpia.isnumeric() == False :
         palabra_lemat = lematizacion(palabra_limpia, lemat_palabras)
-        if palabra_lemat not in lista_palabras:
-          lista_palabras.append(palabra_lemat)
+
+        lista_palabras.append(palabra_lemat)
     lista_palabras.sort()
     clean_docs_dic[indx] = lista_palabras
   return clean_docs_dic
@@ -111,21 +111,24 @@ def crearDiccionario(dic_docs, v_list ):
   for idx,term in enumerate(v_list):#recorro terminos totales
 
     for clave, valor in dic_docs.items():#recorro term por doc
-  
-      if term in valor:
 
+      if term in valor:
+        #print("el term ",term)
+        #print("el valor ",valor)  
         frec_term_doc = valor.count(term)
-          
+        #print("la frec ",frec_term_doc)  
+
         if diccionario.get(term,-1) == -1: #si no hay una clave con term, return -1
           dic = {}
           dic[clave] = frec_term_doc
           diccionario[term] = dic
-
+          #print("entro el dic nuevo ",diccionario[term])
         else:  #si hay una clave con term
-          
           diccionario[term][clave] = frec_term_doc
+          #print("entro el dic viejo",diccionario[term])
         contador = contador +1 
-      
+
+    
     diccionario[term]['n'] = contador      
     contador = 0
   return diccionario

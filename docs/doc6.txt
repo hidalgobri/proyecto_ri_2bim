@@ -1,1 +1,3 @@
-Pedro y Juan están en su casa. La casa de Juan es verde y la de Pedro es marrón
+Pedro y Juan están en su verde casa. La casa de Juan es verde y la de Pedro es marrón
+
+verde
