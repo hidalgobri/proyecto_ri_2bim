@@ -179,22 +179,28 @@ def listaDocsConR( numR, cleanDocsDic ):
       break 
   return listaR
 
-def similitud(consulta_vect,docs_vectorial):
-  sim_dic = {}
-  for id_doc, term_vec in docs_vectorial.items():
-    wi_wq = 0
-    q = 0
-    d = 0
-    if len(consulta_vect) == len(term_vec):  
-      for indx,term in enumerate(consulta_vect):
-        wi_wq += consulta_vect[indx] * term_vec[indx]
-        d += pow(term_vec[indx],2)
-        q += pow(consulta_vect[indx],2)
-    sim_dic[id_doc] = round((wi_wq/(math.sqrt(d)*math.sqrt(q))),2)
-  return sim_dic
+
+def similitud(consulta_vect, cleanDocsDic, ciDic):
+  salida = {}
+  
+
+  for docName, docList in cleanDocsDic.items():
+    contSim = 0
+    for term in consulta_vect:
+      if term in docList:
+        contSim += ciDic[term]
+
+    
+    salida[docName] = contSim
+  
+  return salida
+    
+
+
+  
 
 def consultaUsuario(stopWords, lemas, vocabularioList):
-  entrada = input("Ingrese su consulta por favor")
+  entrada = input("Ingrese su consulta por favor ")
   consultaList = entrada.split()
   entradaLimpia = []
 
@@ -207,6 +213,6 @@ def consultaUsuario(stopWords, lemas, vocabularioList):
 
   entradaLimpia.sort()
 
-  lista = [ 1 if termino in entradaLimpia else 0 for termino in vocabularioList ]
+  #lista = [ 1 if termino in entradaLimpia else 0 for termino in vocabularioList ]
   
-  return lista
+  return entradaLimpia

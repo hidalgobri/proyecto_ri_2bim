@@ -25,7 +25,7 @@ def main():
     #creacion del diccionario
     dicc = fnc.crearDiccionario(cleanDocsDic, vocabularioList )
 
-
+    
     #pedir R al usuario
     R = fnc.pedirR()
 
@@ -39,13 +39,12 @@ def main():
 
         #pedir consulta usuario
         consulta = fnc.consultaUsuario(stopWords, lemas, vocabularioList)
+       
+        
+        #similitud
+        simiDic = fnc.similitud(consulta, cleanDocsDic, ciDic)
 
-        print("---------------------")
-        print("Vocabulario")
-        print(vocabularioList)
-        print("---------------------")
-        print("Consulta")
-        print(consulta)
+        print(simiDic)
     else:
         print("El valor solicitado no es el correcto")
     
