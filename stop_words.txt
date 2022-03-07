@@ -1,3 +1,4 @@
+a
 actualmente
 acuerdo
 adelante
@@ -76,6 +77,7 @@ conocer
 conseguimos
 conseguir
 considera
+considerablemente
 consideró
 consigo
 consigue
@@ -332,6 +334,7 @@ nuevas
 nuevo
 nuevos
 nunca
+o
 ocho
 os
 otra
@@ -526,7 +529,6 @@ ustedes
 últimas
 último
 últimos
-va
 vais
 valor
 vamos
@@ -549,3 +551,4 @@ vuestro
 vuestros
 ya
 yo
+y

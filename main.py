@@ -10,11 +10,11 @@ def main():
     lemas = fnc.palabras_lematizadas_dic()
     
     #limpieza
-    #...
-
+    clean_docs_dic = fnc.limpia_string(docs_dic, stop_words, lemas)
+    
     #creacion del vocabularioList
-    #vocabularioList = crearVocabularioList(diccionario)
-
+    vocabularioList = fnc.crearVocabularioList(clean_docs_dic)
+    print(vocabularioList)
     #creacion del diccionario
     #crearDiccionario(dic_docs, vocabularioList )
 
