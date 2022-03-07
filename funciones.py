@@ -163,7 +163,7 @@ def ci_dicc(v_list,r_docs_relv, N,diccionario ):
   return ci
 
 def pedirR():
-  entrada = input("Ingrese el valor de R ")
+  entrada = input("Ingrese el valor de R: ")
   if entrada.isdigit():
     return int(entrada)
   else:
@@ -200,7 +200,7 @@ def similitud(consulta_vect, cleanDocsDic, ciDic):
   
 
 def consultaUsuario(stopWords, lemas, vocabularioList):
-  entrada = input("Ingrese su consulta por favor ")
+  entrada = input("Ingrese su consulta por favor: ")
   consultaList = entrada.split()
   entradaLimpia = []
 

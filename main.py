@@ -6,9 +6,9 @@ pathDocs = 'docs/'
 def main():
     #Leer docs
     docsDic = fnc.leerDocs(pathDocs)
-    docsDic.pop("doc9") #se borran para probar un ejemplo del profe
-    docsDic.pop("doc8")
-    docsDic.pop("doc7")
+    #docsDic.pop("doc9") #se borran para probar un ejemplo del profe
+    #docsDic.pop("doc8")
+    #docsDic.pop("doc7")
 
 
    
@@ -43,6 +43,8 @@ def main():
         
         #similitud
         simiDic = fnc.similitud(consulta, cleanDocsDic, ciDic)
+
+        simiDic = dict(sorted(simiDic.items(), key=lambda item: item[1], reverse=True))
 
         print(simiDic)
     else:
