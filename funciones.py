@@ -94,6 +94,8 @@ def limpia_string(docs_dic, stop_words, lemat_palabras):
 
 
 
+
+
 def crearDiccionario(dic_docs, v_list ):
   #recibe una lista del contenido de los docs en string
   #devuelve {bicicleta': {'doc_3': 1, 'doc_4': 1, 'n': 2}}
@@ -156,13 +158,6 @@ def ci_dicc(v_list,r_docs_relv, N,diccionario ):
       for doc_r in r_docs_relv:
         if doc_r in dic_con_term.keys():
           ri += 1
-      print(term)
-      print("ni",ni)
-      print("ri",ri)
-      print("ri+p",ri+p)
-      print("R-ri+p",round(R-ri+p,2))
-      print("ni - ri + p",round(ni - ri + p,2))
-      print("N - R - ni + ri + p",round(N - R - ni + ri + p,2))
 
       ci[term] = math.log( (((ri + p)/(R-ri+p)) / ( (ni - ri + p)/ (N - R - ni + ri + p)) ),10)
   return ci
@@ -184,3 +179,34 @@ def listaDocsConR( numR, cleanDocsDic ):
       break 
   return listaR
 
+def similitud(consulta_vect,docs_vectorial):
+  sim_dic = {}
+  for id_doc, term_vec in docs_vectorial.items():
+    wi_wq = 0
+    q = 0
+    d = 0
+    if len(consulta_vect) == len(term_vec):  
+      for indx,term in enumerate(consulta_vect):
+        wi_wq += consulta_vect[indx] * term_vec[indx]
+        d += pow(term_vec[indx],2)
+        q += pow(consulta_vect[indx],2)
+    sim_dic[id_doc] = round((wi_wq/(math.sqrt(d)*math.sqrt(q))),2)
+  return sim_dic
+
+def consultaUsuario(stopWords, lemas, vocabularioList):
+  entrada = input("Ingrese su consulta por favor")
+  consultaList = entrada.split()
+  entradaLimpia = []
+
+  for palabra in consultaList:
+    palabra_limpia = unidecode.unidecode(palabra.lower().replace(',','').replace('.','').replace("'","")) #quita la tilde, y pone en minúscula
+      
+    if palabra_limpia not in stopWords and palabra_limpia.isnumeric() == False :
+      palabra_lemat = lematizacion(palabra_limpia, lemas)
+      entradaLimpia.append(palabra_lemat)
+
+  entradaLimpia.sort()
+
+  lista = [ 1 if termino in entradaLimpia else 0 for termino in vocabularioList ]
+  
+  return lista

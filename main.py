@@ -6,7 +6,7 @@ pathDocs = 'docs/'
 def main():
     #Leer docs
     docsDic = fnc.leerDocs(pathDocs)
-    docsDic.pop("doc9")
+    docsDic.pop("doc9") #se borran para probar un ejemplo del profe
     docsDic.pop("doc8")
     docsDic.pop("doc7")
 
@@ -37,12 +37,19 @@ def main():
         #calculo de ci
         ciDic = fnc.ci_dicc(vocabularioList, docsConRList, len(cleanDocsDic),dicc )
 
-        print(ciDic)
+        #pedir consulta usuario
+        consulta = fnc.consultaUsuario(stopWords, lemas, vocabularioList)
 
+        print("---------------------")
+        print("Vocabulario")
+        print(vocabularioList)
+        print("---------------------")
+        print("Consulta")
+        print(consulta)
     else:
         print("El valor solicitado no es el correcto")
     
-    
+  
 
 if __name__ == "__main__":
     main()
