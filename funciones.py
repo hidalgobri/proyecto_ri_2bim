@@ -1,3 +1,5 @@
+from asyncio.windows_events import NULL
+import math
 import os
 import unidecode
 
@@ -70,16 +72,6 @@ def lematizacion ( palabra, dicc_lemat):
       return key
   return palabra
 
-#1. V= [todos los términos que haya en el doc]
-def crear_v(lista_docs, stop_words, lemat_palabras):
-  v_list = []
-  for doc in lista_docs:
-    doc_limp = limpia_string(doc,stop_words, lemat_palabras)
-
-    v_list_aux = [ palabra for palabra in doc_limp if palabra not in v_list]
-    v_list = v_list + v_list_aux
-  return v_list
-
 def limpia_string(docs_dic, stop_words, lemat_palabras):
 #recibe un string, lo parte, limpia cada palabra y devuelve una lista
 
@@ -148,4 +140,47 @@ def docs_term_limpios (docs_list, stop_words, lemat_palabras):
   for indx,doc in enumerate(docs_list):
     dic_docs[nombre_clave+str(indx)] = limpia_string(doc, stop_words, lemat_palabras)
   return dic_docs
+
+
+def ci_dicc(v_list,r_docs_relv, N,diccionario ):
+  ni = 0 #num docs que contienen el termino
+  R = len(r_docs_relv) # num docs relevantes
+  p = 0.5
+  ci = {}
+  for term in v_list:
+    dic_con_term = diccionario.get(term)
+    ri = 0  #num docs relevantes que tiene ti
+    if (dic_con_term != 0):
+      ni = dic_con_term['n']
+      
+      for doc_r in r_docs_relv:
+        if doc_r in dic_con_term.keys():
+          ri += 1
+      print(term)
+      print("ni",ni)
+      print("ri",ri)
+      print("ri+p",ri+p)
+      print("R-ri+p",round(R-ri+p,2))
+      print("ni - ri + p",round(ni - ri + p,2))
+      print("N - R - ni + ri + p",round(N - R - ni + ri + p,2))
+
+      ci[term] = math.log( (((ri + p)/(R-ri+p)) / ( (ni - ri + p)/ (N - R - ni + ri + p)) ),10)
+  return ci
+
+def pedirR():
+  entrada = input("Ingrese el valor de R ")
+  if entrada.isdigit():
+    return int(entrada)
+  else:
+    return None
+
+def listaDocsConR( numR, cleanDocsDic ):
+  contador = 0
+  listaR = []
+  for key, value in cleanDocsDic.items():
+    listaR.append(key)
+    contador += 1
+    if contador == numR:
+      break 
+  return listaR
 
